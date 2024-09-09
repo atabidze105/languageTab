@@ -32,7 +32,10 @@ namespace languageTab
             cbox_display.SelectedIndex = 0;            
             cbox_gender.SelectedIndex = 0;
             cbox_sorting.SelectedIndex = 0;
-            ListBoxInit(AllClients);
+            SORTING();
+
+            //AddWindow addWindow = new AddWindow();
+            //addWindow.Show();
         }
 
         private void ListBoxInit(List<Client> clients)
@@ -51,28 +54,40 @@ namespace languageTab
                 x.Email,
                 x.RegistrationDate,
                 x.LastVisit,
-                
+
                 visitCount = x.VisitsLogs.Count,
                 ClientPhoto = new Bitmap($"Assets/{x.Photo}"),
-                Tags = x.ClientsTags.Select(y => new 
+                Tags = x.ClientsTags.Select(y => new
                 {
-                   tags[y.IdTag].Name,
-                   Color = $"#{tags[y.IdTag].ColorTag}"
+                    tags[y.IdTag].Name,
+                    Color = $"#{tags[y.IdTag].ColorTag}"
                 })
 
             });
-
-
-            _ClientsSelection.Clear();
-            if (cbox_gender.SelectedIndex != 0 || tbox_search.Text != "") 
-            { 
-                _ClientsSelection.AddRange(clients); 
-            }
             tblock_clientsCount.Text = _ClientsPages.Count > 0 && _ClientsSelection.Count > 0 ? $"{_ClientsPages.SelectMany(list => list).Distinct().Count()} из {AllClients.Count}" :
                 (_ClientsSelection.Count > 0 ? $"{_ClientsSelection.Count} из {AllClients.Count}" : $"{AllClients.Count} из {AllClients.Count}");
+
+            tblock_clientsCount.Text = _ClientsSelection.Count > 0 || tbox_search.Text != "" ? $"{_ClientsSelection.Count} из {AllClients.Count}" : $"{AllClients.Count} из {AllClients.Count}";
             PageTextDisplay();
         }
 
+        private void BirthdaySelection()
+        {
+            if (chbox_birthday.IsChecked == true)
+            {
+                List<Client> clientsBithday = [];
+                clientsBithday.AddRange(_ClientsSelection.Count > 0 ? _ClientsSelection : AllClients);
+                _ClientsSelection.Clear();
+                foreach (Client client in clientsBithday)
+                {
+                    if (client.DateOfBirth.Month == DateTime.Today.Month)
+                    {
+                        _ClientsSelection.Add(client);
+                    }
+                }
+            }
+
+        }
 
         private void PageTextDisplay()
         {
@@ -123,23 +138,22 @@ namespace languageTab
 
         private void ComboBox_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
         {
-            WholeSorting();
+            SORTING();
         }
 
-        
 
-        private List<Client> SelectionGender(List<Client> clients, int genderSwith)
+
+        private void SelectionGender(List<Client> clients, int genderSwith)
         {
             switch (genderSwith)
             {
                 case 1:
-                    return clients.Where(x => x.IdGender == 0).ToList();
+                    _ClientsSelection.AddRange(clients.Where(x => x.IdGender == 0).ToList());
                     break;
                 case 2:
-                    return clients.Where(x => x.IdGender == 1).ToList();
+                    _ClientsSelection.AddRange(clients.Where(x => x.IdGender == 1).ToList());
                     break;
             }
-            return clients;
         }
 
         private List<Client> SelectionSorting(List<Client> clients, int selectonSwitch)
@@ -148,31 +162,94 @@ namespace languageTab
             {
                 case 1:
                     return clients.OrderBy(x => x.Firstname).ToList();
-                    break;
                 case 2:
                     return clients.OrderByDescending(x => x.LastVisit).ToList();
-                    break;
                 case 3:
                     return clients.OrderByDescending(x => x.VisitsLogs.Count).ToList();
-                    break;
             }
 
             return clients;
         }
 
-        private void Selection(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
+        private void SORTING()
         {
-            WholeSorting();
-            //ListBoxInit(SelectionSorting(SelectionGender(_ClientsSelection.Count > 0 ? _ClientsSelection : AllClients, cbox_gender.SelectedIndex), cbox_sorting.SelectedIndex));
+            _ClientsSelection.Clear();
+            SelectionGender(AllClients, cbox_gender.SelectedIndex);
+            BirthdaySelection();
+            ClientsDisplayed(TBoxSorting(), cbox_display.SelectedIndex);
         }
 
-        private void WholeSorting()
+        private List<Client> TBoxSorting() //¬ыборка по строке поиска и сортировка
         {
-            ClientsDisplayed(SelectionSorting(SelectionGender(_ClientsSelection.Count > 0 ? _ClientsSelection : AllClients, cbox_gender.SelectedIndex), cbox_sorting.SelectedIndex), cbox_display.SelectedIndex);
+            if (tbox_search.Text != "")
+            {
+                List<Client> unsortedClients = [];
+                unsortedClients.AddRange(_ClientsSelection.Count > 0 ? _ClientsSelection : AllClients);
+                int prioriryLevel;
+                List<Client> clientsPriorityLevel1 = [];
+                List<Client> clientsPriorityLevel2 = [];
+                List<Client> clientsPriorityLevel3 = [];
+                List<Client> clientsPriorityLevel4 = [];
+                List<Client> clientsPriorityLevel5 = [];
+                foreach (Client client in unsortedClients)
+                {
+                    prioriryLevel = 0;
+                    if (client.Firstname.Trim().ToLower().Contains(tbox_search.Text.Trim().ToLower()))
+                    {
+                        prioriryLevel++;
+                    }
+                    if (client.Name.Trim().ToLower().Contains(tbox_search.Text.Trim().ToLower()))
+                    {
+                        prioriryLevel++;
+                    }
+                    if (client.Surname.Trim().ToLower().Contains(tbox_search.Text.Trim().ToLower()))
+                    {
+                        prioriryLevel++;
+                    }
+                    if (client.Phone.Trim().ToLower().Contains(tbox_search.Text.Trim().ToLower()))
+                    {
+                        prioriryLevel++;
+                    }
+                    if (client.Email.Trim().ToLower().Contains(tbox_search.Text.Trim().ToLower()))
+                    {
+                        prioriryLevel++;
+                    }
+                    switch (prioriryLevel)
+                    {
+                        case 1:
+                            clientsPriorityLevel1.Add(client);
+                            break;
+                        case 2:
+                            clientsPriorityLevel2.Add(client);
+                            break;
+                        case 3:
+                            clientsPriorityLevel3.Add(client);
+                            break;
+                        case 4:
+                            clientsPriorityLevel4.Add(client);
+                            break;
+                        case 5:
+                            clientsPriorityLevel5.Add(client);
+                            break;
+                    }
+                }
+                _ClientsSelection.Clear();
+                _ClientsSelection.AddRange(SelectionSorting(clientsPriorityLevel5, cbox_sorting.SelectedIndex));
+                _ClientsSelection.AddRange(SelectionSorting(clientsPriorityLevel4, cbox_sorting.SelectedIndex));
+                _ClientsSelection.AddRange(SelectionSorting(clientsPriorityLevel3, cbox_sorting.SelectedIndex));
+                _ClientsSelection.AddRange(SelectionSorting(clientsPriorityLevel2, cbox_sorting.SelectedIndex));
+                _ClientsSelection.AddRange(SelectionSorting(clientsPriorityLevel1, cbox_sorting.SelectedIndex));
+                return _ClientsSelection;
+            }
+            else
+            {
+                return SelectionSorting(_ClientsSelection.Count > 0 ? _ClientsSelection : AllClients, cbox_sorting.SelectedIndex);
+            }
+        }
 
-            ListBoxInit(_ClientsPages.Count > 0 ? _ClientsPages[0] : SelectionSorting(SelectionGender(_ClientsSelection.Count > 0 ? _ClientsSelection : AllClients, cbox_gender.SelectedIndex), cbox_sorting.SelectedIndex));
-            _CelectedPageIndex = 0;
-            PageTextDisplay();
+        private void Selection(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
+        {
+            SORTING();
         }
 
         private void ClientsDisplayed(List<Client> clients, int forswitch)
@@ -193,7 +270,6 @@ namespace languageTab
                 default:
                     ListBoxInit(clients);
                     return;
-                    break;
             }
             displayedClientsCount = displayedClientsCount > clients.Count ? clients.Count : displayedClientsCount;
             int listCount = (int)Math.Ceiling((double)clients.Count / displayedClientsCount);
@@ -209,6 +285,19 @@ namespace languageTab
                 }
                 _ClientsPages.Add(displayedClients);
             }
+            _CelectedPageIndex = 0;
+            ListBoxInit(clients.Count > 0 ? _ClientsPages[_CelectedPageIndex] : clients);
+            PageTextDisplay();
+        }
+
+        private void TextBox_searchingProcess(object? sender, Avalonia.Input.KeyEventArgs e)
+        {
+            SORTING();
+        }
+
+        private void CheckBox_birthday(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            SORTING();
         }
     }
 }

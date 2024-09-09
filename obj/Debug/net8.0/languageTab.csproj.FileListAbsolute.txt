@@ -186,3 +186,4 @@ C:\Users\prdb\Desktop\languageTab\bin\Debug\net8.0\runtimes\win\lib\net6.0\Syste
 C:\Users\prdb\Desktop\languageTab\obj\Debug\net8.0\Avalonia\languageTab.dll
 C:\Users\prdb\Desktop\languageTab\obj\Debug\net8.0\Avalonia\languageTab.pdb
 C:\Users\prdb\Desktop\languageTab\obj\Debug\net8.0\refint\Avalonia\languageTab.dll
+C:\Users\prdb\Desktop\languageTab\obj\Debug\net8.0\languageTab.sourcelink.json

@@ -20,22 +20,20 @@ namespace languageTab
 {
     public partial class MainWindow : Window
     {
-        private List<Client> _ClientsDisplayed = []; //Отображаемые элементы
-        private List<List<Client>> _ClientsPages = []; //Список списков элементов (страниц)
-        private List<Client> _ClientsSelection = []; //Выборка элементов
-        private int _CelectedPageIndex; //Выбранный номер страницы
+
+        private int _SelectedPageIndex; //Выбранный номер страницы
 
         public MainWindow()
         {
             InitializeComponent();
 
-            cbox_display.SelectedIndex = 0;            
-            cbox_gender.SelectedIndex = 0;
-            cbox_sorting.SelectedIndex = 0;
-            SORTING();
+            cbox_gender.SelectedIndex = _SelectedCBoxItem_gender;
+            cbox_sorting.SelectedIndex = _SelectedCBoxItem_sorting;
+            cbox_display.SelectedIndex = _SelectedCBoxItem_display;
+            tbox_search.Text = _InsertedTBoxText;
+            chbox_birthday.IsChecked = _SelectedChBoxState_birthday;
 
-            //AddWindow addWindow = new AddWindow();
-            //addWindow.Show();
+            SORTING();
         }
 
         private void ListBoxInit(List<Client> clients)
@@ -48,7 +46,7 @@ namespace languageTab
                 x.Firstname,
                 x.Name,
                 x.Surname,
-                Gender = Genders[x.IdGender].Name,
+                Gender = _Genders[x.IdGender].Name,
                 x.DateOfBirth,
                 x.Phone,
                 x.Email,
@@ -59,15 +57,15 @@ namespace languageTab
                 ClientPhoto = new Bitmap($"Assets/{x.Photo}"),
                 Tags = x.ClientsTags.Select(y => new
                 {
-                    tags[y.IdTag].Name,
-                    Color = $"#{tags[y.IdTag].ColorTag}"
+                    _Tags[y.IdTag].Name,
+                    Color = $"#{_Tags[y.IdTag].ColorTag}"
                 })
 
             });
-            tblock_clientsCount.Text = _ClientsPages.Count > 0 && _ClientsSelection.Count > 0 ? $"{_ClientsPages.SelectMany(list => list).Distinct().Count()} из {AllClients.Count}" :
-                (_ClientsSelection.Count > 0 ? $"{_ClientsSelection.Count} из {AllClients.Count}" : $"{AllClients.Count} из {AllClients.Count}");
+            tblock_clientsCount.Text = _ClientsPages.Count > 0 && _ClientsSelection.Count > 0 ? $"{_ClientsPages.SelectMany(list => list).Distinct().Count()} из {_AllClients.Count}" :
+                (_ClientsSelection.Count > 0 ? $"{_ClientsSelection.Count} из {_AllClients.Count}" : $"{_AllClients.Count} из {_AllClients.Count}");
 
-            tblock_clientsCount.Text = _ClientsSelection.Count > 0 || tbox_search.Text != "" ? $"{_ClientsSelection.Count} из {AllClients.Count}" : $"{AllClients.Count} из {AllClients.Count}";
+            tblock_clientsCount.Text = _ClientsSelection.Count > 0 || tbox_search.Text != "" ? $"{_ClientsSelection.Count} из {_AllClients.Count}" : $"{_AllClients.Count} из {_AllClients.Count}";
             PageTextDisplay();
         }
 
@@ -76,7 +74,7 @@ namespace languageTab
             if (chbox_birthday.IsChecked == true)
             {
                 List<Client> clientsBithday = [];
-                clientsBithday.AddRange(_ClientsSelection.Count > 0 ? _ClientsSelection : AllClients);
+                clientsBithday.AddRange(_ClientsSelection.Count > 0 ? _ClientsSelection : _AllClients);
                 _ClientsSelection.Clear();
                 foreach (Client client in clientsBithday)
                 {
@@ -95,7 +93,7 @@ namespace languageTab
             {
                 tblock_page.IsVisible = true;
                 tblock_pageCount.IsVisible = true;
-                tblock_pageCount.Text = $"{_CelectedPageIndex + 1}/{_ClientsPages.Count}";
+                tblock_pageCount.Text = $"{_SelectedPageIndex + 1}/{_ClientsPages.Count}";
             }
             else
             {
@@ -111,25 +109,25 @@ namespace languageTab
                 switch (btn.Name)
                 {
                     case "btn_previousPage":
-                        _CelectedPageIndex--;
-                        if (_CelectedPageIndex >= 0)
+                        _SelectedPageIndex--;
+                        if (_SelectedPageIndex >= 0)
                         {
-                            ListBoxInit(_ClientsPages[_CelectedPageIndex]);
+                            ListBoxInit(_ClientsPages[_SelectedPageIndex]);
                         }
                         else
                         {
-                            _CelectedPageIndex++;
+                            _SelectedPageIndex++;
                         }
                         break;
                     case "btn_nextPage":
-                        _CelectedPageIndex++;
-                        if (_CelectedPageIndex < _ClientsPages.Count)
+                        _SelectedPageIndex++;
+                        if (_SelectedPageIndex < _ClientsPages.Count)
                         {
-                            ListBoxInit(_ClientsPages[_CelectedPageIndex]);
+                            ListBoxInit(_ClientsPages[_SelectedPageIndex]);
                         }
                         else
                         {
-                            _CelectedPageIndex--;
+                            _SelectedPageIndex--;
                         }
                         break;
                 }
@@ -174,9 +172,16 @@ namespace languageTab
         private void SORTING()
         {
             _ClientsSelection.Clear();
-            SelectionGender(AllClients, cbox_gender.SelectedIndex);
+            SelectionGender(_AllClients, cbox_gender.SelectedIndex);
             BirthdaySelection();
             ClientsDisplayed(TBoxSorting(), cbox_display.SelectedIndex);
+        }
+
+        private void ComboboxItemsSave()
+        {
+            _SelectedCBoxItem_display = cbox_display.SelectedIndex;
+            _SelectedCBoxItem_gender = cbox_gender.SelectedIndex;
+            _SelectedCBoxItem_sorting = cbox_sorting.SelectedIndex;
         }
 
         private List<Client> TBoxSorting() //Выборка по строке поиска и сортировка
@@ -184,7 +189,7 @@ namespace languageTab
             if (tbox_search.Text != "")
             {
                 List<Client> unsortedClients = [];
-                unsortedClients.AddRange(_ClientsSelection.Count > 0 ? _ClientsSelection : AllClients);
+                unsortedClients.AddRange(_ClientsSelection.Count > 0 ? _ClientsSelection : _AllClients);
                 int prioriryLevel;
                 List<Client> clientsPriorityLevel1 = [];
                 List<Client> clientsPriorityLevel2 = [];
@@ -243,7 +248,7 @@ namespace languageTab
             }
             else
             {
-                return SelectionSorting(_ClientsSelection.Count > 0 ? _ClientsSelection : AllClients, cbox_sorting.SelectedIndex);
+                return SelectionSorting(_ClientsSelection.Count > 0 ? _ClientsSelection : _AllClients, cbox_sorting.SelectedIndex);
             }
         }
 
@@ -285,19 +290,29 @@ namespace languageTab
                 }
                 _ClientsPages.Add(displayedClients);
             }
-            _CelectedPageIndex = 0;
-            ListBoxInit(clients.Count > 0 ? _ClientsPages[_CelectedPageIndex] : clients);
+            _SelectedPageIndex = 0;
+            ListBoxInit(clients.Count > 0 ? _ClientsPages[_SelectedPageIndex] : clients);
             PageTextDisplay();
         }
 
         private void TextBox_searchingProcess(object? sender, Avalonia.Input.KeyEventArgs e)
         {
+            _InsertedTBoxText = tbox_search.Text;
             SORTING();
         }
 
         private void CheckBox_birthday(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
+            _SelectedChBoxState_birthday = chbox_birthday.IsChecked;
             SORTING();
+        }
+
+        private void AddClient(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            ComboboxItemsSave();
+            AddWindow addWindow = new AddWindow();
+            addWindow.Show();
+            this.Close();
         }
     }
 }

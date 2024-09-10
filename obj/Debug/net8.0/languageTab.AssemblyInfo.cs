@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("languageTab")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d28d78a1995c30364631ea2c957b60016a1ed948")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46b87eeab22614e5f52955c7f4ea50a318eb1b8b")]
 [assembly: System.Reflection.AssemblyProductAttribute("languageTab")]
 [assembly: System.Reflection.AssemblyTitleAttribute("languageTab")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

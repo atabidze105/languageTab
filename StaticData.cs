@@ -14,45 +14,26 @@ namespace languageTab
 {
     internal static class StaticData
     {
-        public static List<Client> AllClients = Database.Clients.Include(x => x.ClientsTags).Include(x => x.VisitsLogs).Include(x => x.ClientsFiles).ToList();
-        public static List<Gender> Genders = Database.Genders.ToList();
-        public static List<Models.Tag> tags = Database.Tags.ToList();
-        public static List<List<Models.Tag>> tagsEvery = [];
-        public static List<Models.VisitsLog> visitLog = Database.VisitsLogs.ToList();
-        public static List<List<DateOnly>> datesEvery = [];
+        //Универсальные данные:
+        public static List<Client> _AllClients = Database.
+            Clients.Include(x => x.ClientsTags).
+                    Include(x => x.VisitsLogs).
+                    Include(x => x.ClientsFiles).ToList(); //Список клиентов из БД (также связанными данными заполнены коллекции в объектах: теги, посещения, файлы)
+        public static List<Gender> _Genders = Database.Genders.ToList(); //Список полов из БД (сомнительно но окэй)
+        public static List<Models.Tag> _Tags = Database.Tags.ToList(); //Список тегов из БД
+        public static List<Models.VisitsLog> _VisitLog = Database.VisitsLogs.ToList(); //Список посещений
 
+        //Для сортировки и выборки:
+        public static List<Client> _ClientsDisplayed = []; //Отображаемые элементы
+        public static List<List<Client>> _ClientsPages = []; //Список списков элементов (страниц)
+        public static List<Client> _ClientsSelection = []; //Выборка элементов
+        public static int _SelectedCBoxItem_gender = 0; //Выбранный индекс комбобокса: пол
+        public static int _SelectedCBoxItem_sorting = 0; //Выбранный индекс комбобокса: сортировка
+        public static int _SelectedCBoxItem_display = 0; //Выбранный индекс комбобокса: отображение
+        public static bool? _SelectedChBoxState_birthday = false; //Отображение клиентов с ДР в следующем месяце
+        public static string _InsertedTBoxText = ""; //Написанное в строке поика
 
-        public static void GetTags()
-        {
-            foreach (Client client in AllClients)
-            {
-                List<Models.Tag> tagsOfClient = [];
-                foreach (ClientsTag clientTag in Database.ClientsTags)
-                {
-                    if (client.IdClient == clientTag.IdClient)
-                    {
-                        tagsOfClient.Add(tags[clientTag.IdTag]);
-                    }
-                }
-                tagsEvery.Add(tagsOfClient);
-            }
-        }
-
-        public static void GetDates()
-        {
-            foreach (Client client in AllClients)
-            {
-                List<DateOnly> visits = [];
-                foreach (VisitsLog visit in Database.VisitsLogs)
-                {
-                    if (client.IdClient == visit.IdClient)
-                    {
-                        visits.Add(visit.Date);
-                    }
-                }
-                visits.Sort((a,b) => a.Day - b.Day);
-                datesEvery.Add(visits);
-            }
-        }
+        //Для создания и редактирования клиентов
+        public static Client _RedClient;
     }
 }

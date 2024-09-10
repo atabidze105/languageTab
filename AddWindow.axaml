@@ -3,8 +3,10 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="900"
-	MaxWidth="1000" MinHeight="900" 
+	mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="900"
+	MinWidth="800" MinHeight="900"
+	Width="800" Height="900"
+	x:CompileBindings="False"
 	x:Class="languageTab.AddWindow"
 	Title="AddWindow">
 	<Grid
@@ -20,8 +22,6 @@
 				ShowGridLines="true"
 				RowDefinitions="0.5*,0.6*,0.6*,0.6*,0.6*,0.6*,*,0.5*"
 				ColumnDefinitions="*,*">
-				<TextBlock
-					Name="tblock_id"/>
 				<TextBlock 
 					Name="tblock_header"
 					Grid.ColumnSpan="2"
@@ -29,34 +29,44 @@
 					FontWeight="Bold" FontSize="25"
 					HorizontalAlignment="Center"
 					VerticalAlignment="Center"/>
+				<TextBlock
+					Name="tblock_id"
+					FontSize="20"
+					Margin="10 30 0 0"/>
 				<TextBox
 					Name="tbox_firstname"
 					Watermark="Фамилия"	
-					Height="30"
+					VerticalAlignment="Center"
+					MaxLength="50"
 					Grid.Row="1" Margin="10 0"/>
 				<TextBox
 					Name="tbox_name"
 					Watermark="Имя"
-					Height="30"
+					VerticalAlignment="Center"
+					MaxLength="50"
 					Margin="10 0"
 					Grid.Row="2"/>
 				<TextBox
 					Name="tbox_lastname"
 					Watermark="Отчество"
-					Height="30"
+					VerticalAlignment="Center"
+					MaxLength="50"
 					Margin="10 0"
 					Grid.Row="3"/>
 				<TextBox
 					Name="tbox_email"
 					Watermark="Email"
-					Height="30"
 					Margin="10 0"
-					Grid.Row="4"/>
+					Grid.Row="4"
+					VerticalAlignment="Center"
+					KeyUp="EmailInsertion"
+					Text="{Binding Email}"/>
 				<MaskedTextBox
 					Name="tbox_phone"
 					HorizontalAlignment="Left"
-					Mask="8(0000)000-00-00"
-					Height="10" Width="130"
+					Mask="+7(0000)000-00-00"
+					VerticalAlignment="Center"
+					Width="130"
 					Margin="10 0"
 					Grid.Row="5"/>
 				<Calendar
@@ -67,19 +77,6 @@
 					HorizontalAlignment="Center"
 					VerticalAlignment="Top"
 					Margin="7"/>
-				<Button
-					Name="btn_cancel"
-					Content="Отмена"
-					Grid.Row="7"
-					FontSize="25"
-					HorizontalAlignment="Center"/>
-				<Button
-					Name="btn_confirm"
-					Content="Добавить"
-					Grid.Column="1"
-					Grid.Row="7"
-					FontSize="25"
-					HorizontalAlignment="Center"/>
 				<ToggleSwitch
 					Name="tgswictch_gender"
 					OnContent="Мужской"
@@ -90,26 +87,47 @@
 				<StackPanel
 					Orientation="Vertical"
 					Grid.Column="1"
-					Grid.Row="6">
+					Grid.Row="5"
+					Grid.RowSpan="2"
+					Margin="20">
 					<TextBlock
 						Text="Изображение:"/>
 					<Image
 						Name="image_clientPhoto"
-						IsVisible="False"/>
+						IsVisible="False"
+						Height="120"
+						HorizontalAlignment="Left"/>
 					<TextBlock
+						Name="tblock_clientPhoto"
 						IsVisible="False"/>
 					<StackPanel
 						Orientation="Horizontal">
 						<Button
-						Name="btn_deleteImage"
-						Content="Удалить"
-						IsVisible="False"/>
+							Name="btn_deleteImage"
+							Content="Удалить"
+							IsVisible="false"
+							Click="ImageSelection"/>
 						<Button
 							Name="btn_addImage"
-							Content="Добавить"/>
-					</StackPanel>
-					
+							Content="Добавить"
+							Click="ImageSelection"/>
+					</StackPanel>					
 				</StackPanel>
+				<Button
+					Name="btn_cancel"
+					Content="Отмена"
+					Grid.Row="7"
+					FontSize="25"
+					HorizontalAlignment="Center"
+					Click="ClientAddDelete"/>
+				<Button
+					Name="btn_confirm"
+					Content="Добавить"
+					Grid.Column="1"
+					Grid.Row="7"
+					FontSize="25"
+					HorizontalAlignment="Center"
+					Click="ClientAddDelete"/>
 			</Grid>
 		</Panel>
 	</Grid>  

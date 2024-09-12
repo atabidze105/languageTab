@@ -19,7 +19,7 @@ public partial class Client
 
     public DateOnly DateOfBirth { get; set; }
 
-    [Phone] public string Phone { get; set; } = null!;
+    public string Phone { get; set; } = null!;
 
     [EmailAddress] public string Email { get; set; } = null!;
 

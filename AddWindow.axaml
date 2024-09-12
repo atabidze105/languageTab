@@ -7,6 +7,7 @@
 	MinWidth="800" MinHeight="900"
 	Width="800" Height="900"
 	x:CompileBindings="False"
+	WindowStartupLocation="CenterScreen"
 	x:Class="languageTab.AddWindow"
 	Title="AddWindow">
 	<Grid
@@ -19,7 +20,7 @@
 			Grid.Row="1"
 			Background="White">
 			<Grid
-				ShowGridLines="true"
+				ShowGridLines="False"
 				RowDefinitions="0.5*,0.6*,0.6*,0.6*,0.6*,0.6*,*,0.5*"
 				ColumnDefinitions="*,*">
 				<TextBlock 
@@ -59,21 +60,30 @@
 					Margin="10 0"
 					Grid.Row="4"
 					VerticalAlignment="Center"
-					KeyUp="EmailInsertion"
+					MaxLength="256"
 					Text="{Binding Email}"/>
 				<MaskedTextBox
 					Name="tbox_phone"
-					HorizontalAlignment="Left"
-					Mask="+7(0000)000-00-00"
+					HorizontalAlignment="Left" 
 					VerticalAlignment="Center"
-					Width="130"
+					Width="150"
 					Margin="10 0"
 					Grid.Row="5"/>
+				<ComboBox
+					Name="cbox_digitsCount"
+					Grid.Row="6"
+					Margin="10 0"
+					SelectionChanged="ComboBox_PhoneDigitsCount">
+					<ComboBoxItem Content="Десятизначный номер"/>
+					<ComboBoxItem Content="Одиннадцатизначный номер"/>
+					<ComboBoxItem Content="Девятизначный номер"/>
+				</ComboBox>
 				<Calendar
 					Name="calendar_birthday"
 					Grid.Row="1"
 					Grid.Column="1"
 					Grid.RowSpan="4"
+					SelectionMode="SingleDate"
 					HorizontalAlignment="Center"
 					VerticalAlignment="Top"
 					Margin="7"/>
@@ -113,6 +123,13 @@
 							Click="ImageSelection"/>
 					</StackPanel>					
 				</StackPanel>
+				<Button
+					Name="btn_delete"
+					Content="Удалить"
+					HorizontalAlignment="Center"
+					Grid.Row="7" Grid.ColumnSpan="2"
+					FontSize="25"
+					Click="ClientAddDelete"/>
 				<Button
 					Name="btn_cancel"
 					Content="Отмена"

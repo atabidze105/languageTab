@@ -34,6 +34,6 @@ namespace languageTab
         public static string _InsertedTBoxText = ""; //Написанное в строке поика
 
         //Для создания и редактирования клиентов
-        public static Client _RedClient;
+        public static Client _RedClient = null;
     }
 }

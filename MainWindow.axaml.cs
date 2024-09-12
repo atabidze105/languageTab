@@ -15,12 +15,18 @@ using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using HarfBuzzSharp;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.Design;
+using languageTab.Context;
 
 namespace languageTab
 {
     public partial class MainWindow : Window
     {
-
+        public List<Client> _AllClients = Database.
+           Clients.Include(x => x.ClientsTags).
+                   Include(x => x.VisitsLogs).
+                   Include(x => x.ClientsFiles).ToList(); //Список клиентов из БД (также связанными данными заполнены коллекции в объектах: теги, посещения, файлы)
         private int _SelectedPageIndex; //Выбранный номер страницы
 
         public MainWindow()
@@ -54,7 +60,7 @@ namespace languageTab
                 x.LastVisit,
 
                 visitCount = x.VisitsLogs.Count,
-                ClientPhoto = new Bitmap($"Assets/{x.Photo}"),
+                ClientPhoto = System.IO.File.Exists($"Assets/{x.Photo}") == true ? new Bitmap($"Assets/{x.Photo}") : null,
                 Tags = x.ClientsTags.Select(y => new
                 {
                     _Tags[y.IdTag].Name,
@@ -310,6 +316,14 @@ namespace languageTab
         private void AddClient(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             ComboboxItemsSave();
+            var btn = (sender as Button)!;
+            switch (btn.Name)
+            {
+                case "btn_red":
+                    _RedClient = Helper.Database.Clients.Find((int)btn!.Tag!);
+                    break;
+            }
+
             AddWindow addWindow = new AddWindow();
             addWindow.Show();
             this.Close();

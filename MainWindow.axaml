@@ -43,8 +43,7 @@
 					<ComboBox
 						Name="cbox_gender"
 						SelectionChanged="Selection"
-						SelectedItem="0"
-						>
+						SelectedItem="0">
 						<ComboBoxItem Content="Все"/>
 						<ComboBoxItem Content="Мужской"/>
 						<ComboBoxItem Content="Женский"/>
@@ -139,7 +138,7 @@
 						Height="100" Margin="-8">
 						<Grid
 							ShowGridLines="False"
-							ColumnDefinitions="40,100,110,100,110,60,80,120,200,110,240,250,*">
+							ColumnDefinitions="40,100,110,100,110,60,80,120,200,110,240,250,2*,*">
 							<TextBlock
 								Text="{Binding IdClient}" FontSize="12"
 								VerticalAlignment="Center" Margin="3 5"/>
@@ -201,6 +200,13 @@
 									</ListBox.ItemTemplate>
 								</ListBox>
 							</Panel>
+							<!--редактирование-->
+							<Button
+								Name="btn_red"
+								Grid.Column="13"
+								Content="Red"
+								Tag="{Binding IdClient}"
+								Click="AddClient"/>
 						</Grid>
 					</Border>
 				</DataTemplate>

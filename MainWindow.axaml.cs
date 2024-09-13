@@ -33,16 +33,16 @@ namespace languageTab
         {
             InitializeComponent();
 
-            cbox_gender.SelectedIndex = _SelectedCBoxItem_gender;
+            cbox_gender.SelectedIndex = _SelectedCBoxItem_gender; //Из соответствующих статичестких полей вып. спискам передаются нужные индексы
             cbox_sorting.SelectedIndex = _SelectedCBoxItem_sorting;
             cbox_display.SelectedIndex = _SelectedCBoxItem_display;
-            tbox_search.Text = _InsertedTBoxText;
-            chbox_birthday.IsChecked = _SelectedChBoxState_birthday;
+            tbox_search.Text = _InsertedTBoxText; // текстовому полю передается текст, по которому выполнялся поиск
+            chbox_birthday.IsChecked = _SelectedChBoxState_birthday; //чекбоксу с ДР передается выбранное ранее значение
 
             SORTING();
         }
 
-        private void ListBoxInit(List<Client> clients)
+        private void ListBoxInit(List<Client> clients) //применение списка к литсбоксу
         {
             _ClientsDisplayed.Clear();
             _ClientsDisplayed.AddRange(clients);
@@ -75,7 +75,7 @@ namespace languageTab
             PageTextDisplay();
         }
 
-        private void BirthdaySelection()
+        private void BirthdaySelection() //выборка по ДР
         {
             if (chbox_birthday.IsChecked == true)
             {
@@ -93,7 +93,7 @@ namespace languageTab
 
         }
 
-        private void PageTextDisplay()
+        private void PageTextDisplay() //отображение номера страницы
         {
             if (_ClientsPages.Count > 0)
             {

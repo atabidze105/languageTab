@@ -1,7 +1,36 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\prdb\\Desktop\\languageTab\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|c:\\users\\prdb\\desktop\\recoverytab\\languagetab\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|solutionrelative:mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|c:\\users\\prdb\\desktop\\recoverytab\\languagetab\\staticdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|solutionrelative:staticdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|c:\\users\\prdb\\desktop\\recoverytab\\languagetab\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
+      "RelativeMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|solutionrelative:mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|c:\\users\\prdb\\desktop\\recoverytab\\languagetab\\addwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
+      "RelativeMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|solutionrelative:addwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|c:\\users\\prdb\\desktop\\recoverytab\\languagetab\\addwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|solutionrelative:addwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|c:\\users\\prdb\\desktop\\recoverytab\\languagetab\\context\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|solutionrelative:context\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|c:\\users\\prdb\\desktop\\recoverytab\\languagetab\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D191583B-E510-4CDF-98C1-B274370077A3}|languageTab.csproj|solutionrelative:models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,12 +38,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 6,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -34,6 +59,95 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StaticData.cs",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\StaticData.cs",
+              "RelativeDocumentMoniker": "StaticData.cs",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\StaticData.cs",
+              "RelativeToolTip": "StaticData.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-13T12:18:39.177Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\MainWindow.axaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\MainWindow.axaml.cs",
+              "RelativeToolTip": "MainWindow.axaml.cs",
+              "ViewState": "AQIAAF0AAAAAAAAAAAAAAF8AAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-13T12:18:33.748Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\MainWindow.axaml",
+              "RelativeDocumentMoniker": "MainWindow.axaml",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\MainWindow.axaml",
+              "RelativeToolTip": "MainWindow.axaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-09-13T12:18:33.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AddWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\AddWindow.axaml",
+              "RelativeDocumentMoniker": "AddWindow.axaml",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\AddWindow.axaml",
+              "RelativeToolTip": "AddWindow.axaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-09-13T12:18:31.745Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AddWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\AddWindow.axaml.cs",
+              "RelativeDocumentMoniker": "AddWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\AddWindow.axaml.cs",
+              "RelativeToolTip": "AddWindow.axaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwBAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-13T12:18:30.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Helper.cs",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\Context\\Helper.cs",
+              "RelativeDocumentMoniker": "Context\\Helper.cs",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\Context\\Helper.cs",
+              "RelativeToolTip": "Context\\Helper.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-13T12:17:51.046Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Client.cs",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\Models\\Client.cs",
+              "RelativeDocumentMoniker": "Models\\Client.cs",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\Models\\Client.cs",
+              "RelativeToolTip": "Models\\Client.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-13T12:17:44.561Z",
+              "EditorCaption": ""
             }
           ]
         }

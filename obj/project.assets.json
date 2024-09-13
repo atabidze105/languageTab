@@ -5680,11 +5680,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\prdb\\Desktop\\languageTab\\languageTab.csproj",
+      "projectUniqueName": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\languageTab.csproj",
       "projectName": "languageTab",
-      "projectPath": "C:\\Users\\prdb\\Desktop\\languageTab\\languageTab.csproj",
+      "projectPath": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\languageTab.csproj",
       "packagesPath": "C:\\Users\\prdb\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\prdb\\Desktop\\languageTab\\obj\\",
+      "outputPath": "C:\\Users\\prdb\\Desktop\\recoveryTab\\languageTab\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\prdb\\AppData\\Roaming\\NuGet\\NuGet.Config",

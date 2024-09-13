@@ -25,8 +25,8 @@ namespace languageTab;
 
 public partial class AddWindow : Window
 {
-    private Client _ClientPlug = new Client();
-    private string? _PictureFile = _RedClient != null ? _RedClient.Photo : null;
+    private Client _ClientPlug = new Client(); //Объект для оображения ошибки в поле для ввода email 
+    private string? _PictureFile = _RedClient != null ? _RedClient.Photo : null; //изображение, которое изначально имеет объект (если оно у него есть, иначе null)
     private string? _SelectedImage = null; //выбранное изображение
 
     private readonly FileDialogFilter fileFilter = new() //Фильтр для проводника
@@ -38,7 +38,7 @@ public partial class AddWindow : Window
     public AddWindow()
     {
         InitializeComponent();        
-        tblock_header.Text = _RedClient == null ? "Добавить клиента" : " Редактирование клиента";
+        tblock_header.Text = _RedClient == null ? "Добавить клиента" : " Редактирование клиента"; //В зависимости от наличия редактируемого объекта, интерфейс изменяется
         btn_confirm.Content = _RedClient == null ? "Добавить" : "Сохранить";
         btn_delete.IsVisible = _RedClient == null ? false : true;
         SelectedClientDataInsertion();
@@ -46,10 +46,10 @@ public partial class AddWindow : Window
 
     private void SelectedClientDataInsertion()
     {
-        tbox_email.DataContext = _ClientPlug;
+        tbox_email.DataContext = _ClientPlug; //привязка контекста данных полю для ввода адреса эл. почты к полю Email (при неверном вводе почты выдает ошибку)
         if (_RedClient != null)
         {
-            switch (_RedClient.Phone.Count())
+            switch (_RedClient.Phone.Count()) //Отображение нужной маски для ввода телефона в зависимости от количества символов
             {
                 case 16:
                     cbox_digitsCount.SelectedIndex = 0;
@@ -67,111 +67,107 @@ public partial class AddWindow : Window
             cbox_digitsCount.SelectedIndex = 0;
         }
 
-        if (_RedClient != null)
+        if (_RedClient != null) //если объект оедактируется
         {
-            tblock_id.Text = $"ID: {_RedClient.IdClient}";
-            tbox_firstname.Text = _RedClient.Firstname;
+            tblock_id.Text = $"ID: {_RedClient.IdClient}"; //Отображается ID
+            tbox_firstname.Text = _RedClient.Firstname; //поля заполняются соответсвующими данными
             tbox_name.Text = _RedClient.Name;
             tbox_lastname.Text = _RedClient.Surname;
 
             tbox_phone.Text = _RedClient.Phone;
             tbox_email.Text = _RedClient.Email;
 
-            tgswictch_gender.IsChecked = _RedClient.IdGender == 0 ? true : false;
-            calendar_birthday.DisplayDate = _RedClient.DateOfBirth.ToDateTime(TimeOnly.MinValue);
+            tgswictch_gender.IsChecked = _RedClient.IdGender == 0 ? true : false; //отображение пола
+            calendar_birthday.DisplayDate = _RedClient.DateOfBirth.ToDateTime(TimeOnly.MinValue); //На календре открывается страница с датой рождения и выбирается она же
             calendar_birthday.SelectedDate = _RedClient.DateOfBirth.ToDateTime(TimeOnly.MinValue);
 
-
-
-            if (SameName(System.IO.Path.GetFileNameWithoutExtension(_RedClient.Photo)) != null)
+            if (SameName(System.IO.Path.GetFileNameWithoutExtension(_RedClient.Photo)) != null) //проверяется наличие изображения в ассетах
             {
-                image_clientPhoto.Source = new Bitmap($"Assets/{_RedClient.Photo}");
-                tblock_clientPhoto.Text = _SelectedImage = _RedClient.Photo;
-                tblock_clientPhoto.IsVisible = image_clientPhoto.IsVisible = btn_deleteImage.IsVisible = true;
+                image_clientPhoto.Source = new Bitmap($"Assets/{_RedClient.Photo}"); //устаанавливается на превью
+                tblock_clientPhoto.Text = _SelectedImage = _RedClient.Photo; //передаются значения в текстблок-превью и поле для выбранного изображения
+                tblock_clientPhoto.IsVisible = image_clientPhoto.IsVisible = btn_deleteImage.IsVisible = true; //превью и кнопка удаления картинки становится видимыми
             }
         }
     }
 
-    private void ClientChangesApply(Client client)
+    private void ClientChangesApply(Client client) //Прменение изменений к клиенту
     {
-        if (client != null)
-        {
-            client.IdClient = _RedClient == null ? Helper.Database.Clients.OrderByDescending(x => x.IdClient).ToList().First().IdClient + 1 : _RedClient.IdClient;
-            client.RegistrationDate = _RedClient == null ? new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day) : _RedClient.RegistrationDate ;
-            
-            client.Firstname = tbox_firstname.Text;
-            client.Name = tbox_name.Text;
-            client.Surname = tbox_lastname.Text;
-            client.Email = tbox_email.Text;
-            client.Phone = tbox_phone.Text;
-            client.IdGender = tgswictch_gender.IsChecked == true  ? 0 : 1;
-            client.DateOfBirth = calendar_birthday.SelectedDate != null ? 
-                new DateOnly(calendar_birthday.SelectedDate.Value.Year, calendar_birthday.SelectedDate.Value.Month, calendar_birthday.SelectedDate.Value.Day) : 
-                new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
-            client.Photo = _SelectedImage;
-        }
+        client.IdClient = _RedClient == null ? Helper.Database.Clients.OrderByDescending(x => x.IdClient).ToList().First().IdClient + 1 : _RedClient.IdClient;
+        client.RegistrationDate = _RedClient == null ? new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day) : _RedClient.RegistrationDate;
+
+        client.Firstname = tbox_firstname.Text;
+        client.Name = tbox_name.Text;
+        client.Surname = tbox_lastname.Text;
+        client.Email = tbox_email.Text;
+        client.Phone = tbox_phone.Text;
+        client.IdGender = tgswictch_gender.IsChecked == true ? 0 : 1;
+        client.DateOfBirth = calendar_birthday.SelectedDate != null ?
+            new DateOnly(calendar_birthday.SelectedDate.Value.Year, calendar_birthday.SelectedDate.Value.Month, calendar_birthday.SelectedDate.Value.Day) : //Если не была выбрана иная дата, устанавливается сегодняшняя
+            new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+        client.Photo = _SelectedImage;
     }
 
 
-    private void ClientAddDelete(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void ClientAddDelete(object? sender, Avalonia.Interactivity.RoutedEventArgs e) //Добавление и удаление клиента, выход из формы
     {
         try
         {
             var btn = (sender as Button)!;
             switch (btn.Name)
             {
-                case "btn_cancel":
+                case "btn_cancel": //Отмена
                     if (_SelectedImage != null && _SelectedImage != _PictureFile) //Если поле для выбранного изображения не равно null и выбранное изображение не совпадает со значением из поля, хранящее изначальноне изображение товара
                         System.IO.File.Delete($"Assets/{_SelectedImage}"); //Файл изображения удаляется из папки ассетов
 
                     ShowMainWindow();
                     break;
-                case "btn_confirm":
+                case "btn_confirm": //Добавление/сохранение изменений
                     if (tbox_firstname.Text != "" && tbox_name.Text != "" && IsEmailValid(tbox_email.Text) == true && tbox_phone.Text.Contains('_') == false &&
-                        NamesCheck(tbox_name.Text) == false && NamesCheck(tbox_firstname.Text) == false && NamesCheck(tbox_lastname.Text) == false)
-                    {
-                        if (_RedClient != null)
+                        NamesCheck(tbox_name.Text) == false && NamesCheck(tbox_firstname.Text) == false && NamesCheck(tbox_lastname.Text) == false) 
+                    { //Данные будут сохранены если в полях ФИО, телефона нет недопустимых символов, пройдена проверка на email
+                        if (_RedClient != null) //если рдактирование
                         {
-                            ClientChangesApply(_RedClient);
-                            Helper.Database.SaveChanges();
-
-
+                            ClientChangesApply(_RedClient); //применение изменений
+                            Helper.Database.SaveChanges(); //сохранение в БД
                             if (_SelectedImage != _PictureFile && _PictureFile != null) //Если было установлено новое изображение, 
-                                System.IO.File.Delete($"Assets/{_PictureFile}");
+                                System.IO.File.Delete($"Assets/{_PictureFile}"); //то старое удалится
                         }
-                        else
+                        else //Если создание нового
                         {
-                            Client newClient = new Client();
-                            ClientChangesApply(newClient);
-                            Helper.Database.Clients.Add(newClient);
-                            Helper.Database.SaveChanges();
+                            Client newClient = new Client(); //Создается новый объект
+                            ClientChangesApply(newClient); //применяются изменения
+                            Helper.Database.Clients.Add(newClient); //добавление в БД
+                            Helper.Database.SaveChanges(); //сохранение изменений
                         }
-                        ShowMainWindow();
+                        ShowMainWindow(); //Переход к основному окну
                     }
-                    
                     break;
-                case "btn_delete":
-                    Helper.Database.Clients.Remove(Helper.Database.Clients.Find(_RedClient.IdClient));
-                    Helper.Database.SaveChanges();
-                    ShowMainWindow();
+                case "btn_delete": //удаление
+                    if (_SelectedImage != null) //Удаление выбранного и имеющегося изображений, если имеются
+                        System.IO.File.Delete($"Assets/{_SelectedImage}");
+                    if (_PictureFile != null)
+                        System.IO.File.Delete($"Assets/{_PictureFile}");
+                    Helper.Database.Clients.Remove(Helper.Database.Clients.Find(_RedClient.IdClient)); //В БД находит объект и удаляет
+                    Helper.Database.SaveChanges(); //сохранение изменений
+                    ShowMainWindow(); //Переход к основному окну
                     break;
             }
         }
         catch
         {
-            if (_SelectedImage != null && _SelectedImage != _PictureFile) //если до исключения было выбрано новоне изображение, оно удалится из ассетов. Если у товра уже было изображение, оно останется на месте
+            if (_SelectedImage != null && _SelectedImage != _PictureFile) //если до исключения было выбрано новое изображение, оно удалится из ассетов. Если у объекта уже было изображение, оно останется на месте
                 System.IO.File.Delete($"Assets/{_SelectedImage}");
 
-            ShowMainWindow();
+            ShowMainWindow(); //Переход к основному окну
         }
     }
 
-    private async void ImageSelection(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void ImageSelection(object? sender, Avalonia.Interactivity.RoutedEventArgs e) //Выбор и удаление изображения
     {
         var btn = (sender as Button)!;
         switch (btn.Name)
         {
-            case "btn_addImage":
+            case "btn_addImage": //добавление
                 OpenFileDialog dialog = new(); //Открытие проводника
                 dialog.Filters.Add(fileFilter); //Применение фильтра
                 string[] result = await dialog.ShowAsync(this); //Выбор файла
@@ -200,14 +196,13 @@ public partial class AddWindow : Window
                 _SelectedImage = imageName;
 
                 break;
-            case "btn_deleteImage":
+            case "btn_deleteImage": //удаление
                 tblock_clientPhoto.IsVisible = image_clientPhoto.IsVisible = btn_deleteImage.IsVisible = false;
 
-                if (_SelectedImage != _PictureFile) //Удаление произойдет только если удаляемое изображение не является значением из поля, хранящее изначальноне изображение товара
-                    System.IO.File.Delete($"Assets/{tblock_clientPhoto.Text}"); //Удаление файла по названию из превью-текстблока
+                if (_SelectedImage != _PictureFile) //Удаление произойдет только если удаляемое изображение не является значением из поля, хранящее изначальноне изображение объекта
+                    System.IO.File.Delete($"Assets/{_SelectedImage}"); //Удаление выбранного изображения
 
                 _SelectedImage = null;//очистка поля с выбранным изображением
-
                 break;
         }
     }
@@ -228,7 +223,7 @@ public partial class AddWindow : Window
         return null; //если такой файл не был найден, возвращает null
     }
 
-    private bool IsEmailValid(string emailAddress)
+    private bool IsEmailValid(string emailAddress) //проверка корректности email
     {
         try
         {
@@ -241,9 +236,9 @@ public partial class AddWindow : Window
         }
     }
 
-    private void ComboBox_PhoneDigitsCount(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
+    private void ComboBox_PhoneDigitsCount(object? sender, Avalonia.Controls.SelectionChangedEventArgs e) //смена элементов выпадающего списка
     {
-        switch (cbox_digitsCount.SelectedIndex)
+        switch (cbox_digitsCount.SelectedIndex) //сменяются маски поля для ввода телефона
         {
             case 0:
                 tbox_phone.Mask = "+7(000)000-00-00";
@@ -257,7 +252,7 @@ public partial class AddWindow : Window
         }
     }
 
-    private bool NamesCheck(string name)
+    private bool NamesCheck(string name)// проверка на корректность ФИО
     {
         return new string[] 
         { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
@@ -267,9 +262,9 @@ public partial class AddWindow : Window
         }.Any(name.Contains);
     }
 
-    private void ShowMainWindow()
+    private void ShowMainWindow() //Переход к основному окну
     {
-        _RedClient = null;
+        _RedClient = null; //очистка поля для редактируемого объекта
         MainWindow mainWindow = new MainWindow();
         mainWindow.Show();
         this.Close();

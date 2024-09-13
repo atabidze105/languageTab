@@ -14,7 +14,7 @@
 		ShowGridLines="False"
 		RowDefinitions="*,9*,*"
 		ColumnDefinitions="*,10*,*"
-		Background="LightGray">
+		Background="#e7fabf">
 		<Panel
 			Grid.Column="1"
 			Grid.Row="1"
@@ -23,6 +23,7 @@
 				ShowGridLines="False"
 				RowDefinitions="0.5*,0.6*,0.6*,0.6*,0.6*,0.6*,*,0.5*"
 				ColumnDefinitions="*,*">
+				<!--заголовок-->
 				<TextBlock 
 					Name="tblock_header"
 					Grid.ColumnSpan="2"
@@ -30,16 +31,19 @@
 					FontWeight="Bold" FontSize="25"
 					HorizontalAlignment="Center"
 					VerticalAlignment="Center"/>
+				<!--ID-->
 				<TextBlock
 					Name="tblock_id"
 					FontSize="20"
 					Margin="10 30 0 0"/>
+				<!--фамилия-->
 				<TextBox
 					Name="tbox_firstname"
 					Watermark="Фамилия"	
 					VerticalAlignment="Center"
 					MaxLength="50"
 					Grid.Row="1" Margin="10 0"/>
+				<!--имя-->
 				<TextBox
 					Name="tbox_name"
 					Watermark="Имя"
@@ -47,6 +51,7 @@
 					MaxLength="50"
 					Margin="10 0"
 					Grid.Row="2"/>
+				<!--отчетство-->
 				<TextBox
 					Name="tbox_lastname"
 					Watermark="Отчество"
@@ -54,6 +59,7 @@
 					MaxLength="50"
 					Margin="10 0"
 					Grid.Row="3"/>
+				<!--почта-->
 				<TextBox
 					Name="tbox_email"
 					Watermark="Email"
@@ -62,6 +68,7 @@
 					VerticalAlignment="Center"
 					MaxLength="256"
 					Text="{Binding Email}"/>
+				<!--телефон-->
 				<MaskedTextBox
 					Name="tbox_phone"
 					HorizontalAlignment="Left" 
@@ -69,6 +76,7 @@
 					Width="150"
 					Margin="10 0"
 					Grid.Row="5"/>
+				<!--выпадающий список с выбором маски для ввода телефона-->
 				<ComboBox
 					Name="cbox_digitsCount"
 					Grid.Row="6"
@@ -78,6 +86,7 @@
 					<ComboBoxItem Content="Одиннадцатизначный номер"/>
 					<ComboBoxItem Content="Девятизначный номер"/>
 				</ComboBox>
+				<!--выбор дня рождения-->
 				<Calendar
 					Name="calendar_birthday"
 					Grid.Row="1"
@@ -87,6 +96,7 @@
 					HorizontalAlignment="Center"
 					VerticalAlignment="Top"
 					Margin="7"/>
+				<!--пол-->
 				<ToggleSwitch
 					Name="tgswictch_gender"
 					OnContent="Мужской"
@@ -94,6 +104,7 @@
 					IsChecked="true"
 					Grid.Row="5"
 					HorizontalAlignment="Right"/>
+				<!--превью изображения и кнопки для смены и удаления-->
 				<StackPanel
 					Orientation="Vertical"
 					Grid.Column="1"
@@ -123,6 +134,7 @@
 							Click="ImageSelection"/>
 					</StackPanel>					
 				</StackPanel>
+				<!--удаление объекта-->
 				<Button
 					Name="btn_delete"
 					Content="Удалить"
@@ -130,6 +142,7 @@
 					Grid.Row="7" Grid.ColumnSpan="2"
 					FontSize="25"
 					Click="ClientAddDelete"/>
+				<!--отмена-->
 				<Button
 					Name="btn_cancel"
 					Content="Отмена"
@@ -137,6 +150,7 @@
 					FontSize="25"
 					HorizontalAlignment="Center"
 					Click="ClientAddDelete"/>
+				<!--добавление / сохранение изменений-->
 				<Button
 					Name="btn_confirm"
 					Content="Добавить"

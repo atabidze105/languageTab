@@ -15,15 +15,15 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = languageTab
-build_property.ProjectDir = C:\Users\prdb\Desktop\languageTab\
+build_property.ProjectDir = C:\Users\prdb\Desktop\recoveryTab\languageTab\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[C:/Users/prdb/Desktop/languageTab/AddWindow.axaml]
+[C:/Users/prdb/Desktop/recoveryTab/languageTab/AddWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/prdb/Desktop/languageTab/App.axaml]
+[C:/Users/prdb/Desktop/recoveryTab/languageTab/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/prdb/Desktop/languageTab/MainWindow.axaml]
+[C:/Users/prdb/Desktop/recoveryTab/languageTab/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

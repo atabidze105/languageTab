@@ -15,10 +15,6 @@ namespace languageTab
     internal static class StaticData
     {
         //Универсальные данные:
-        public static List<Client> _AllClients = Database.
-            Clients.Include(x => x.ClientsTags).
-                    Include(x => x.VisitsLogs).
-                    Include(x => x.ClientsFiles).ToList(); //Список клиентов из БД (также связанными данными заполнены коллекции в объектах: теги, посещения, файлы)
         public static List<Gender> _Genders = Database.Genders.ToList(); //Список полов из БД (сомнительно но окэй)
         public static List<Models.Tag> _Tags = Database.Tags.ToList(); //Список тегов из БД
         public static List<Models.VisitsLog> _VisitLog = Database.VisitsLogs.ToList(); //Список посещений
